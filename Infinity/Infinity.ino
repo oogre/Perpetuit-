@@ -10,10 +10,13 @@
 #define MASTER_RAIL_IN_STEP  36800
 #define SLAVE_RAIL_IN_STEP   20000
 
+const float vMin = 1;    // step/millisec
+const float vMax = 1000;   // step/millissec
+
 #if MASTER
-Axe axe(MASTER_RAIL_IN_STEP, MASTER);
+Axe axe(MASTER_RAIL_IN_STEP, MASTER, vMin, vMax);
 #else
-Axe axe(SLAVE_RAIL_IN_STEP, !MASTER, SLAVE_RAIL_IN_STEP / (float)MASTER_RAIL_IN_STEP);
+Axe axe(SLAVE_RAIL_IN_STEP, !MASTER, vMin, vMax, SLAVE_RAIL_IN_STEP / (float)MASTER_RAIL_IN_STEP);
 #endif
 
 void setup() {

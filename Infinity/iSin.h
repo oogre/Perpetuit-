@@ -1,17 +1,5 @@
 
 
-void convertIsinTable16() {
-  for (int i = 0 ; i < 91 ; i ++) {
-    unsigned int t = round(((isinTable16[i] * 0.0000152590219) + 1) * 0.5f * 65535);
-    Serial.print(t);
-    Serial.print(", ");
-    if (i % 10 == 9 )
-      Serial.println("");
-  }
-  Serial.println("");
-}
-
-
 
 
 // 91 x 2 bytes ==> 182 bytes
@@ -64,4 +52,18 @@ float fsin(float d)
   float a = isin(d);
   float b = isin(d + 1);
   return a + (d - int(d)) * (b - a);
+}
+
+
+
+
+void convertIsinTable16() {
+  for (int i = 0 ; i < 91 ; i ++) {
+    unsigned int t = round(((isinTable16[i] * 0.0000152590219) + 1) * 0.5f * 65535);
+    Serial.print(t);
+    Serial.print(", ");
+    if (i % 10 == 9 )
+      Serial.println("");
+  }
+  Serial.println("");
 }
