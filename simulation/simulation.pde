@@ -38,7 +38,7 @@ class Axe {
       
       int stepDuration = 0;
       println(alpha);
-      while ((int)alpha == (int)beta && p < totalStep) {
+      //while ((int)alpha == (int)beta && p < totalStep) {
         
         float v = sp.getSpeed(alpha);
         int d = sp.getDirection(alpha);
@@ -49,8 +49,8 @@ class Axe {
         dr.drawDirection(p / (float)totalStep, d);
         totalDuration += stepDuration;
         p++;
-        alpha = TWO_PI * p/(float)totalStep;
-      }
+       // alpha = TWO_PI * p/(float)totalStep;
+     //}
       //println(stepDuration);
     }
 
@@ -65,8 +65,8 @@ public class MoveProcessX implements MoveProcess
 {
   public float getSpeed(float alpha) 
   {
-    return (icos((int)(360 * (2 * alpha + PI) / TWO_PI ))+1)/2;
-    //return (cos(2 * alpha + PI);
+    //return (icos((int)(360 * (2 * alpha + PI) / TWO_PI ))+1)/2;
+    return (cos(2 * alpha + PI)+1)/2;
   }
   public int getDirection(float alpha) {
     return (alpha >= 0 && alpha <= PI) ? 1 : 0 ;
@@ -77,8 +77,8 @@ public class MoveProcessY implements MoveProcess
 {
   public float getSpeed(float alpha) 
   {
-    // return (cos(4 * alpha)+1)/2;
-    return (icos((int)(360 * 4 * alpha / TWO_PI ))+1)/2;
+     return (cos(4 * alpha)+1)/2;
+    //return (icos((int)(360 * 4 * alpha / TWO_PI ))+1)/2;
   }
   public int getDirection(float alpha) {
     return (  (alpha >= 0 && alpha <= QUARTER_PI)||

@@ -22,6 +22,7 @@ class Axe {
 
     void update(void (*doStep)(uint16_t) = Axe::doStep, void (*setDirection)(uint8_t) = Axe::setDirection, void (*debug)(uint16_t, uint8_t) = Axe::debug) {
       float alpha = 0;
+      uint16_t beta = alpha;
       for (uint32_t p = 0 ; p < totalStep; ) {
         uint16_t beta = (uint16_t)alpha;
         float v   = isin(frq * (alpha + off));
