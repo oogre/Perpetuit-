@@ -1,0 +1,12 @@
+# sleep 1;
+echo "run 0";
+processing-java --sketch=/Users/ogre/works/0202/Felix/Perpetuite/VirtualSync  --run "0" & >> ./out.txt;
+# sleep 1;
+echo "run 1";
+processing-java --sketch=/Users/ogre/works/0202/Felix/Perpetuite/VirtualSync  --run "1" & >> ./out.txt;
+# sleep 1 ;
+echo "run 2";
+processing-java --sketch=/Users/ogre/works/0202/Felix/Perpetuite/VirtualSync  --run "2" & >> ./out.txt;
+# sleep 1;
+echo "run 3";
+processing-java --sketch=/Users/ogre/works/0202/Felix/Perpetuite/VirtualSync  --run "3" & >> ./out.txt;

@@ -1,7 +1,8 @@
 boolean master = false;
 int totalStepX = 27000;
 int totalStepY = 17920;
-float resolution = 1.0f/400;
+int K = 400;
+float resolution = 1.0f/K;
 float batchMaxSizeX = totalStepX * resolution;
 float batchMaxSizeY = totalStepY * resolution ;
 PGraphics pg;
@@ -24,7 +25,7 @@ void setup() {
 }
 
 void draw() {
-  
+
   background(255);
   image(pg, 0, 0);
   translate(0, height/2);
@@ -39,11 +40,13 @@ void draw() {
 }
 
 class Robot {
+  int k = 0 ; 
   long x = 0 ;
   long y = height/2;
   float alpha = 0;
   float beta = 0;
   float alphaInc;
+  int maxK;
   float betaInc;
   float d;
   boolean goStart = true;
@@ -51,8 +54,8 @@ class Robot {
     this.d = d;
     alphaInc = 2.f * resolution ; 
     betaInc = 2.f * 2.f * resolution ;
-    println(alphaInc);
-    println(betaInc);
+    maxK = (int)(K * PI);
+    println(maxK);
   }
 
   void goTo(float ratio) {
@@ -74,21 +77,30 @@ class Robot {
         goStart=false;
       }
     } else {
-      float sX = sin(alpha);
-      float sY = sin(beta+HALF_PI);
+      float sX = sin(k * alphaInc);
+      float sY = sin(k * betaInc + HALF_PI);
       boolean  dX = sX > 0 ;
       boolean  dY = sY > 0 ;
       int batchSizeX = abs(round(sX * batchMaxSizeX));
       int batchSizeY = abs(round(sY * batchMaxSizeY));
+
+      if (k > maxK-1) {
+        batchSizeX = (int)abs(x);
+        batchSizeY = (int)abs(y);
+        println(".");
+      }
+
       for (int i = 0; i < max(batchSizeX, batchSizeY); i ++ ) {
         if (i < batchSizeX)x += dX ? 1 : -1;
         if (i < batchSizeY)y += dY ? 1 : -1;
       }
-      alpha += alphaInc;
-      beta += betaInc;
-      if (alpha  >= TWO_PI || beta >= (2 * TWO_PI)) {
-        alpha = 0;
-        beta = 0;
+
+      alpha = k * alphaInc;
+      beta = k * betaInc;
+      k++;
+      if (k > maxK) {
+        k = 0;
+        println(x, y);
       }
     }
     if (size != 0 ) {
